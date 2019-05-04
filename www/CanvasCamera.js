@@ -224,6 +224,10 @@ CanvasCamera.prototype.createRenderer = (function (element, canvasCamera) {
     CanvasCamera.Renderer.prototype.bufferize = function(data) {
         if (this.enabled()) {
             this.buffer.push(data);
+            while(this.buffer.length > 1)
+            {
+                this.buffer.pop();
+            }
             this.run();
         }
 
@@ -245,32 +249,7 @@ CanvasCamera.prototype.createRenderer = (function (element, canvasCamera) {
 
     CanvasCamera.Renderer.prototype.render = function(data) {
         if (this.enabled()) {
-            if (this.canvasCamera && this.canvasCamera.options && this.canvasCamera.options.use) {
-                if (data && data[this.canvasCamera.options.use]) {
-                    this.data = data;
-                    if (data.hasOwnProperty('orientation') && data.orientation) {
-                        this.orientation = data.orientation;
-                    }
-
-                    if (this.image) {
-                        // type can be 'data' or 'file'
-                        switch(this.canvasCamera.options.use) {
-                            case 'file':
-                                if (data[this.canvasCamera.options.use].search('file://') > -1) {
-                                    // add a random seed to prevent browser caching.
-                                    this.image.src = data[this.canvasCamera.options.use] + '?seed=' + Math.round((new Date()).getTime() * Math.random() * 1000);
-                                } else {
-                                    this.image.src = data[this.canvasCamera.options.use];
-                                }
-                            break;
-                            default:
-                                this.image.src = data[this.canvasCamera.options.use];
-                        }
-                    }
-
-                    this.disable();
-                }
-            }
+            this.image.src = data['data'];
         }
 
         return this;
@@ -473,6 +452,14 @@ CanvasCamera.prototype.cameraPosition = function(cameraFacing, onError, onSucces
 };
 
 CanvasCamera.prototype.capture = function(data) {
+    if (data && data.output && data.output.codes)
+    {
+        if (this.options.onScanResult && typeof this.options.onScanResult === 'function')
+        {
+            this.options.onScanResult(data.output.codes);
+        }
+    }
+
     if (data && data.output && data.output.images) {
         if (data.output.images.fullsize && data.output.images.fullsize[this.options.use]) {
             if (this.canvas.fullsize) {
