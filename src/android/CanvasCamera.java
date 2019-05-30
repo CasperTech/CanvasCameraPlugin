@@ -35,6 +35,7 @@ import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -45,7 +46,7 @@ public class CanvasCamera extends CordovaPlugin
     private static final String TAG = "CanvasCamera";
     private static final int REQUEST_CAMERA_PERMISSION_RESULT = 0;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION_RESULT = 1;
-    private static final boolean LOGGING = false; //false to disable logging
+    private static final boolean LOGGING = true; //false to disable logging
 
     private final static String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -86,6 +87,8 @@ public class CanvasCamera extends CordovaPlugin
     private boolean mPreviewing = true;
     private SurfaceTexture mPreviewSurface;
 
+    private CordovaWebView mWebView;
+
     private boolean shownDialog = false;
     private volatile boolean decodeRunning = false;
 
@@ -99,12 +102,12 @@ public class CanvasCamera extends CordovaPlugin
             int screenWidth = mW.getDefaultDisplay().getWidth();
             int screenHeight = mW.getDefaultDisplay().getHeight();
             mActivity.addContentView(mTextureView, new ViewGroup.LayoutParams(screenWidth, screenHeight));
-            if (LOGGING) Log.i(TAG, "Camera preview surface initialized.");
+            if (LOGGING) LogThis(TAG, "Camera preview surface initialized.");
             return true;
         }
         else
         {
-            if (LOGGING) Log.w(TAG, "Could not initialize preview surface.");
+            if (LOGGING) LogThis(TAG, "Could not initialize preview surface.");
             return false;
         }
     }
@@ -120,11 +123,11 @@ public class CanvasCamera extends CordovaPlugin
                 {
                     parentViewGroup.removeView(mTextureView);
                 }
-                if (LOGGING) Log.i(TAG, "Camera preview surface removed.");
+                if (LOGGING) LogThis(TAG, "Camera preview surface removed.");
             }
             catch (Exception e)
             {
-                if (LOGGING) Log.w(TAG, "Could not remove view : " + e.getMessage());
+                if (LOGGING) LogThis(TAG, "Could not remove view : " + e.getMessage());
             }
         }
     }
@@ -215,7 +218,15 @@ public class CanvasCamera extends CordovaPlugin
     public void initialize(CordovaInterface cordova, CordovaWebView webView)
     {
         mActivity = cordova.getActivity();
+        mWebView = webView;
+        LogThis(TAG, "Cordova initialising..");
         super.initialize(cordova, webView);
+        LogThis(TAG, "Cordova initialised");
+    }
+
+    public void LogThis(String tag, String data)
+    {
+        webView.loadUrl("javascript:console.log('[LOGTHIS][" + StringEscapeUtils.escapeEcmaScript(tag) + "] " + StringEscapeUtils.escapeEcmaScript(data) + "');");
     }
 
     @Override
@@ -463,7 +474,7 @@ public class CanvasCamera extends CordovaPlugin
             {
                 public void run()
                 {
-                    Log.e(TAG, "onImageAvailable: " + count++);
+                    LogThis(TAG, "onImageAvailable: " + count++);
                     Image img = null;
                     img = reader.acquireLatestImage();
 
@@ -634,7 +645,7 @@ public class CanvasCamera extends CordovaPlugin
                             catch (JSONException e)
                             {
                                 if (LOGGING)
-                                    Log.e(TAG, "Cannot put data.output.images.fullsize.data  into JSON result : " + e.getMessage());
+                                    LogThis(TAG, "Cannot put data.output.images.fullsize.data  into JSON result : " + e.getMessage());
                             }
                             if (fullsize.length() > 0)
                             {
@@ -649,7 +660,7 @@ public class CanvasCamera extends CordovaPlugin
                                     catch (JSONException e)
                                     {
                                         if (LOGGING)
-                                            Log.e(TAG, "Cannot put data.output.images.fullsize.rotation into JSON result : " + e.getMessage());
+                                            LogThis(TAG, "Cannot put data.output.images.fullsize.rotation into JSON result : " + e.getMessage());
                                     }
 
                                     try
@@ -659,14 +670,14 @@ public class CanvasCamera extends CordovaPlugin
                                     catch (JSONException e)
                                     {
                                         if (LOGGING)
-                                            Log.e(TAG, "Cannot put data.output.images.fullsize.timestamp into JSON result : " + e.getMessage());
+                                            LogThis(TAG, "Cannot put data.output.images.fullsize.timestamp into JSON result : " + e.getMessage());
                                     }
 
                                 }
                                 catch (JSONException e)
                                 {
                                     if (LOGGING)
-                                        Log.e(TAG, "Cannot put data.output.images.fullsize into JSON result : " + e.getMessage());
+                                        LogThis(TAG, "Cannot put data.output.images.fullsize into JSON result : " + e.getMessage());
                                 }
 
                                 // JSON output
@@ -680,7 +691,7 @@ public class CanvasCamera extends CordovaPlugin
                                 catch (JSONException e)
                                 {
                                     if (LOGGING)
-                                        Log.e(TAG, "Cannot put data.output.images into JSON result : " + e.getMessage());
+                                        LogThis(TAG, "Cannot put data.output.images into JSON result : " + e.getMessage());
                                 }
 
                                 if (mPreviewing)
@@ -694,7 +705,7 @@ public class CanvasCamera extends CordovaPlugin
                     }
                     catch (Exception ignored)
                     {
-                        Log.e(TAG, "Reader shows an exception! ", ignored);
+                        LogThis(TAG, "Reader shows an exception! ");
                         /* Ignored */
                     }
                     finally
@@ -739,7 +750,7 @@ public class CanvasCamera extends CordovaPlugin
                         stringBuilder.append("RAW" + "  ");
                     }
                 }
-                Log.d("Capabilities: ", stringBuilder.toString());
+                LogThis("Capabilities: ", stringBuilder.toString());
 
                 int[] h = cameraCharacteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES);
 
@@ -814,7 +825,7 @@ public class CanvasCamera extends CordovaPlugin
                 public void onConfigured(CameraCaptureSession cameraCaptureSession)
                 {
                     // The camera is already closed
-                    Log.e(TAG, "onConfigured");
+                    LogThis(TAG, "onConfigured");
                     if (mCameraDevice == null) return;
 
                     // When the session is ready, we start displaying the preview.
@@ -845,7 +856,7 @@ public class CanvasCamera extends CordovaPlugin
                 @Override
                 public void onConfigureFailed(CameraCaptureSession cameraCaptureSession)
                 {
-                    Log.d(TAG, "onConfigureFailed: startPreview");
+                    LogThis(TAG, "onConfigureFailed: startPreview");
                 }
             }, null);
         }
@@ -932,7 +943,7 @@ public class CanvasCamera extends CordovaPlugin
         }
         catch (JSONException e)
         {
-            if (LOGGING) Log.e(TAG, "Cannot put data.output.images into JSON result : " + e.getMessage());
+            if (LOGGING) LogThis(TAG, "Cannot put data.output.images into JSON result : " + e.getMessage());
         }
 
         return getPluginResultMessage(message, output);
@@ -960,7 +971,7 @@ public class CanvasCamera extends CordovaPlugin
         if (startCamera())
         {
             deferPluginResultCallback(mStartCaptureCallbackContext);
-            if (LOGGING) Log.i(TAG, "Capture started !");
+            if (LOGGING) LogThis(TAG, "Capture started !");
         }
         else
         {
@@ -980,7 +991,7 @@ public class CanvasCamera extends CordovaPlugin
         }
         catch (Exception e)
         {
-            if (LOGGING) Log.e(TAG, "Options parsing error : " + e.getMessage());
+            if (LOGGING) LogThis(TAG, "Options parsing error : " + e.getMessage());
             mStartCaptureCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, getPluginResultMessage(e.getMessage())));
             return;
         }
@@ -1007,6 +1018,10 @@ public class CanvasCamera extends CordovaPlugin
         {
             mScan = options.getBoolean(K_SCAN);
         }
+        if (options.has(K_CAPTURE_KEY))
+        {
+            mPreviewing = options.getBoolean(K_CAPTURE_KEY);
+        }
 
         // canvas
         if (options.has(K_CANVAS_KEY))
@@ -1026,14 +1041,23 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException
     {
+        crash();
         mArgs = args;
         mCurrentCallbackContext = callbackContext;
-
-        if (PermissionHelper.hasPermission(this, Manifest.permission.CAMERA) && PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) && PermissionHelper.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        LogThis(TAG, "Checking input");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        LogThis(TAG, "********************************");
+        if (action.equals("startCapture"))
         {
-            if ("startCapture".equals(action))
+            LogThis(TAG, "CheckPermissions");
+            if (PermissionHelper.hasPermission(this, Manifest.permission.CAMERA) && PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) && PermissionHelper.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
             {
-                if (LOGGING) Log.i(TAG, "Starting async startCapture thread...");
+                if (LOGGING) LogThis(TAG, "Starting async startCapture thread...");
                 mActivity.runOnUiThread(new Runnable()
                 {
                     public void run()
@@ -1043,71 +1067,28 @@ public class CanvasCamera extends CordovaPlugin
                 });
                 return true;
             }
-            else if ("stopCapture".equals(action))
+            else
             {
-                if (LOGGING) Log.i(TAG, "Starting async stopCapture thread...");
-                mActivity.runOnUiThread(new Runnable()
-                {
-                    public void run()
-                    {
-                        //stopCapture(mCurrentCallbackContext);
-                    }
-                });
-                return true;
-            }
-            else if ("flashMode".equals(action))
-            {
-                if (LOGGING) Log.i(TAG, "Starting async flashMode thread...");
-                mActivity.runOnUiThread(new Runnable()
-                {
-                    public void run()
-                    {
-                        //flashMode(mArgs, mCurrentCallbackContext);
-                    }
-                });
-                return true;
-            }
-            else if ("cameraPosition".equals(action))
-            {
-                if (LOGGING) Log.i(TAG, "Starting async cameraPosition thread...");
-                mActivity.runOnUiThread(new Runnable()
-                {
-                    public void run()
-                    {
-                        // cameraPosition(mArgs, mCurrentCallbackContext);
-                    }
-                });
-                return true;
-            }
-        }
-        else
-        {
-            if ("startCapture".equals(action))
-            {
+                LogThis(TAG, "No perms, requesting");
                 deferPluginResultCallback(mCurrentCallbackContext);
                 PermissionHelper.requestPermissions(this, SEC_START_CAPTURE, PERMISSIONS);
                 return true;
             }
-            else if ("stopCapture".equals(action))
-            {
-                deferPluginResultCallback(mCurrentCallbackContext);
-                PermissionHelper.requestPermission(this, SEC_STOP_CAPTURE, Manifest.permission.CAMERA);
-                return true;
-            }
-            else if ("flashMode".equals(action))
-            {
-                deferPluginResultCallback(mCurrentCallbackContext);
-                PermissionHelper.requestPermission(this, SEC_FLASH_MODE, Manifest.permission.CAMERA);
-                return true;
-            }
-            else if ("cameraPosition".equals(action))
-            {
-                deferPluginResultCallback(mCurrentCallbackContext);
-                PermissionHelper.requestPermission(this, SEC_CAMERA_POSITION, Manifest.permission.CAMERA);
-                return true;
-            }
+        }
+        else if (action.equals("setScan") && args.length() > 0)
+        {
+            boolean option = args.getBoolean(0);
+            mScan = option;
+            return true;
+        }
+        else if (action.equals("setCapture") && args.length() > 0)
+        {
+            boolean option = args.getBoolean(0);
+            mPreviewing = option;
+            return true;
         }
 
         return false;
     }
 }
+

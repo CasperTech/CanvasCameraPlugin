@@ -10,6 +10,9 @@
       "ios"
     ]
   },
+  "scripts": {
+    "build": "tsc --removeComments"
+  },
   "keywords": [
     "ecosystem:cordova",
     "cordova-android",
@@ -20,18 +23,18 @@
   ],
   "contributors": [
     {
-      "name" : "Virtuoworks",
-      "url" : "https://www.virtuoworks.com/"
+      "name": "Virtuoworks",
+      "url": "https://www.virtuoworks.com/"
     },
     {
-      "name" : "Sami Radi",
-      "email" : "sami.radi@virtuoworks.com",
-      "url" : "https://github.com/Sami-Radi"
+      "name": "Sami Radi",
+      "email": "sami.radi@virtuoworks.com",
+      "url": "https://github.com/Sami-Radi"
     },
     {
-      "name" : "Sébastien Guillon",
-      "email" : "sebastien.guillon@virtuoworks.com",
-      "url" : "https://github.com/Sebastien-Guillon"
+      "name": "Sébastien Guillon",
+      "email": "sebastien.guillon@virtuoworks.com",
+      "url": "https://github.com/Sebastien-Guillon"
     }
   ],
   "engines": {
@@ -41,5 +44,13 @@
       }
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "~6.4.0",
+    "typescript": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.4",
+    "@types/cordova": "0.0.34"
+  }
 }
