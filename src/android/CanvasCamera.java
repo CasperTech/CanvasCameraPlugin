@@ -1010,11 +1010,11 @@ public class CanvasCamera extends CordovaPlugin
 
         if (options.has(K_WIDTH_KEY))
         {
-            mWidth = canvas.getInt(K_WIDTH_KEY);
+            mWidth = options.getInt(K_WIDTH_KEY);
         }
         if (options.has(K_HEIGHT_KEY))
         {
-            mHeight = canvas.getInt(K_HEIGHT_KEY);
+            mHeight = options.getInt(K_HEIGHT_KEY);
         }
 
         // canvas
