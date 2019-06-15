@@ -1,1 +1,0 @@
-{"version":3,"file":"CanvasCameraOptions.js","sourceRoot":"","sources":["../ts-src/CanvasCameraOptions.ts"],"names":[],"mappings":"","sourcesContent":["export interface CanvasCameraOptions\r\n{\r\n    scan?: boolean;\r\n    capture?: boolean;\r\n    canvas?: {\r\n        width?: number;\r\n        height?: number;\r\n    }\r\n}"]}
