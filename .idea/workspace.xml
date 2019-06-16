@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="270" column="48" selection-start-line="270" selection-start-column="48" selection-end-line="270" selection-end-column="48" />
+            <state relative-caret-position="517">
+              <caret line="712" column="36" lean-forward="true" selection-start-line="712" selection-start-column="36" selection-end-line="712" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -98,7 +98,6 @@
       <find>mCanvasWidth</find>
       <find>mCamera</find>
       <find>closeCamera</find>
-      <find>onStop</find>
       <find>mTextureview</find>
       <find>mPreviewing</find>
       <find>removePreviewsu</find>
@@ -110,6 +109,7 @@
       <find>mPreviewing = true</find>
       <find>onPause</find>
       <find>Log</find>
+      <find>onStop</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,8 +127,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="594" />
-    <option name="y" value="199" />
+    <option name="x" value="924" />
+    <option name="y" value="172" />
     <option name="width" value="2799" />
     <option name="height" value="1707" />
   </component>
@@ -238,18 +238,18 @@
       <updated>1556144955886</updated>
       <workItem from="1556144957053" duration="1098000" />
       <workItem from="1556146903082" duration="171000" />
-      <workItem from="1560690642124" duration="1492000" />
+      <workItem from="1560690642124" duration="1679000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6773000" />
+    <option name="totallyTimeSpent" value="6960000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="396" y="133" width="1866" height="1138" extended-state="0" />
+    <frame x="616" y="115" width="1866" height="1138" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21650055" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21650055" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -294,8 +294,8 @@
     <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera2.java" />
     <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="270" column="48" selection-start-line="270" selection-start-column="48" selection-end-line="270" selection-end-column="48" />
+        <state relative-caret-position="517">
+          <caret line="712" column="36" lean-forward="true" selection-start-line="712" selection-start-column="36" selection-end-line="712" selection-end-column="36" />
         </state>
       </provider>
     </entry>

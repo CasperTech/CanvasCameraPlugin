@@ -228,7 +228,7 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public void onStop()
     {
-    if (LOGGING) Log.w(TAG, "OnStop");
+        if (LOGGING) Log.w(TAG, "OnStop");
         super.onStop();
         closeCamera();
         if (mTextureView != null)
@@ -236,7 +236,6 @@ public class CanvasCamera extends CordovaPlugin
             removePreviewSurface();
             mTextureView = null;
         }
-        mPreviewing = false;
     }
 
     @Override
@@ -708,7 +707,10 @@ public class CanvasCamera extends CordovaPlugin
                                 {
                                     PluginResult result = new PluginResult(PluginResult.Status.OK, getPluginResultMessage("OK", output));
                                     result.setKeepCallback(true);
-                                    mStartCaptureCallbackContext.sendPluginResult(result);
+                                    if (mStartCaptureCallbackContext != null)
+                                    {
+                                        mStartCaptureCallbackContext.sendPluginResult(result);
+                                    }
                                 }
                             }
                         }
