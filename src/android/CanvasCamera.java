@@ -228,11 +228,24 @@ public class CanvasCamera extends CordovaPlugin
     public void onStop()
     {
         super.onStop();
+        closeCamera();
         if (mTextureView != null)
         {
             removePreviewSurface();
+            mTextureView = null;
         }
         mPreviewing = false;
+    }
+
+    @Override
+    public void onPause()
+    {
+        closeCamera();
+        if (mTextureView != null)
+        {
+            removePreviewSurface();
+            mTextureView = null;
+        }
     }
 
     @Override
@@ -246,7 +259,7 @@ public class CanvasCamera extends CordovaPlugin
     public void onResume(boolean multitasking)
     {
         super.onResume(multitasking);
-        if (mPreviewing && mTextureView != null)
+        if (mPreviewing && mTextureView == null)
         {
             startCamera();
         }
