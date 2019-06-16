@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4920b3ec-f50c-4fb2-acba-980ae0f8d86e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/android/CanvasCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/android/CanvasCamera.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="147" column="9" lean-forward="true" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+            <state relative-caret-position="381">
+              <caret line="242" column="34" selection-start-line="242" selection-start-column="34" selection-end-line="242" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -103,13 +102,13 @@
       <find>mTextureview</find>
       <find>mPreviewing</find>
       <find>removePreviewsu</find>
-      <find>onPause</find>
       <find>start(</find>
       <find>startCapture</find>
       <find>startCamera</find>
       <find>initPreview</find>
       <find>onResume</find>
       <find>mPreviewing = true</find>
+      <find>onPause</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,8 +126,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="40" />
-    <option name="y" value="193" />
+    <option name="x" value="594" />
+    <option name="y" value="199" />
     <option name="width" value="2799" />
     <option name="height" value="1707" />
   </component>
@@ -238,15 +237,15 @@
       <updated>1556144955886</updated>
       <workItem from="1556144957053" duration="1098000" />
       <workItem from="1556146903082" duration="171000" />
-      <workItem from="1560690642124" duration="962000" />
+      <workItem from="1560690642124" duration="1272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6243000" />
+    <option name="totallyTimeSpent" value="6553000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="27" y="129" width="1866" height="1138" extended-state="0" />
+    <frame x="396" y="133" width="1866" height="1138" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21650055" />
@@ -294,8 +293,8 @@
     <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera2.java" />
     <entry file="file://$PROJECT_DIR$/src/android/CanvasCamera.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="147" column="9" lean-forward="true" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+        <state relative-caret-position="381">
+          <caret line="242" column="34" selection-start-line="242" selection-start-column="34" selection-end-line="242" selection-end-column="34" />
         </state>
       </provider>
     </entry>

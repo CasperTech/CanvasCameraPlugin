@@ -238,8 +238,9 @@ public class CanvasCamera extends CordovaPlugin
     }
 
     @Override
-    public void onPause()
+    public void onPause(boolean multitasking)
     {
+        super.onPause(multitasking);
         closeCamera();
         if (mTextureView != null)
         {
