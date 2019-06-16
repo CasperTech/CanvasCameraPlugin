@@ -42,10 +42,10 @@ import java.util.*;
 
 public class CanvasCamera extends CordovaPlugin
 {
-    private static final String TAG = "CanvasCamera";
+    private static final String TAG = "CanvasCameraJava";
     private static final int REQUEST_CAMERA_PERMISSION_RESULT = 0;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION_RESULT = 1;
-    private static final boolean LOGGING = false; //false to disable logging
+    private static final boolean LOGGING = true; //false to disable logging
 
     private final static String[] PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -221,12 +221,14 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public void onStart()
     {
+    if (LOGGING) Log.w(TAG, "OnStart");
         super.onStart();
     }
 
     @Override
     public void onStop()
     {
+    if (LOGGING) Log.w(TAG, "OnStop");
         super.onStop();
         closeCamera();
         if (mTextureView != null)
@@ -240,10 +242,12 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public void onPause(boolean multitasking)
     {
+        if (LOGGING) Log.w(TAG, "OnPause");
         super.onPause(multitasking);
         closeCamera();
         if (mTextureView != null)
         {
+            if (LOGGING) Log.w(TAG, "Removing preview surface");
             removePreviewSurface();
             mTextureView = null;
         }
@@ -252,6 +256,7 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public void onDestroy()
     {
+        if (LOGGING) Log.w(TAG, "OnDestroy");
         super.onDestroy();
         cordova.getThreadPool().shutdownNow();
     }
@@ -259,9 +264,11 @@ public class CanvasCamera extends CordovaPlugin
     @Override
     public void onResume(boolean multitasking)
     {
+    if (LOGGING) Log.w(TAG, "OnResume");
         super.onResume(multitasking);
         if (mPreviewing && mTextureView == null)
         {
+        if (LOGGING) Log.w(TAG, "Starting Camera");
             startCamera();
         }
     }
